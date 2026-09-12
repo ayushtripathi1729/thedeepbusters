@@ -1,76 +1,76 @@
-# Deepfake Detection Website
+# MaayaBreaker / The DeepBusters
 
-A full-stack deepfake and misinformation detection platform featuring multi-modal analysis of images, videos, audio, text, and files with AI-powered detection models and an intuitive React frontend.
+An evidence-first digital-media forensics platform. The current implementation provides a polished React analysis experience, secure media intake, forensic metadata extraction, persistent analysis records, and a human-review feedback queue.
 
-## Table of Contents
-- [About The Project](#about-the-project)
-- [Features](#features)
-- [Technology Stack](#technology-stack)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [Contact](#contact)
-- [License](#license)
+## What is implemented
 
-## About The Project
-This project aims to provide a comprehensive web platform to detect deepfakes using state-of-the-art AI models. Users can upload various media types for real-time authenticity checks, supported by a modern React UI and a robust Flask backend.
+- Responsive React landing page, analysis workspace, result state, feedback controls, and verification guidance.
+- Flask JSON API with image, video, and audio upload validation.
+- Magic-byte validation, filename sanitisation, upload-size limits, image decode verification, SHA-256 hashes, and no permanent media-file storage.
+- SQLite persistence for analyses and unverified feedback.
+- Image evidence: decoded format, dimensions, and EXIF-presence indicator.
+- Honest model state: no prediction or confidence is emitted until a validated detector is configured.
 
-## Features
-- Image, video, audio, text, and generic file upload and analysis
-- Heatmap visualizations for detection results
-- Secure file handling and upload processing
-- Modular architecture for extensibility
-- Responsive and user-friendly interface
+## API
 
-## Technology Stack
-- Backend: Python, Flask, PyTorch/TensorFlow (for models)
-- Frontend: React, Tailwind CSS
-- Other: REST APIs, Axios for HTTP requests
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| GET | `/api/health` | Service and model readiness |
+| POST | `/api/analyze/image` | Validate and inspect an image upload |
+| POST | `/api/analyze/video` | Validate a video upload container |
+| POST | `/api/analyze/audio` | Validate an audio upload container |
+| GET | `/api/analysis/:id` | Retrieve an analysis record |
+| POST | `/api/analysis/:id/feedback` | Submit unverified review feedback |
 
-## Getting Started
+Analysis endpoints accept `multipart/form-data` with a `file` field. Feedback accepts a claim of `authentic`, `manipulated`, `unsure`, or `result_incorrect`.
 
-### Prerequisites
-- Python 3.8+
-- Node.js 14+
-- Git
+## Run locally
 
-### Installation
-
-1. Clone the repository:
-git clone https://github.com/ayushtripathi1729/deepfake-detection-website.git
-cd deepfake-detection-website
-
-
-2. Set up backend environment:
+```powershell
 cd backend
-python -m venv venv
-source venv/bin/activate # On Windows use venv\Scripts\activate
-pip install -r requirements.txt
-
-
-3. Set up frontend environment:
-cd ../frontend
-npm install
-
-## Usage
-
-### Backend
-Start the Flask backend server:
-cd backend
-source venv/bin/activate # Activate your virtual environment
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install Flask Flask-Cors Pillow
 python app.py
+```
 
-### Frontend
-Start the React frontend:
+For the production-shaped asynchronous flow, start the API and worker separately:
+
+```powershell
+cd backend
+python app.py
+# separate terminal
+python worker.py
+```
+
+In another terminal:
+
+```powershell
 cd frontend
+npm install
 npm start
-Open `http://localhost:3000` in the browser to access the app.
+```
 
-## Contributing
-Contributions are welcome! Feel free to open issues and submit pull requests for features, bug fixes, or improvements.
+Copy `.env.example` to `.env` and adjust paths, origins, and limits. `REACT_APP_API_URL` is available when the API is hosted separately.
 
-## Contact
-Ayush Tripathi - [GitHub](https://github.com/ayushtripathi1729) - ayushtripathi2822@gmail.com
+## Model integration roadmap
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+The legacy model scripts remain outside the production request path because their model identifiers are placeholders and cannot yield trustworthy results. A production adapter should expose a registered version/checksum, calibrated probabilities, uncertainty/OOD handling, evidence artifacts, benchmark metrics, and background processing for video/audio. Training data and user feedback must remain separated until feedback has undergone verification.
+
+## Research programs
+
+The `ml/` package is intentionally separate from the API.
+
+```powershell
+# Validate an identity/source-safe dataset manifest and create a reproducible run record
+python -m ml.training.train --config ml/configs/example.json
+
+# Score an exported prediction JSONL file (one {"label": 0|1, "score": 0..1} per line)
+python -m ml.evaluation.evaluate --predictions predictions.jsonl --output evaluation.json
+```
+
+Dataset manifests require a media path, binary label, split, and should include `source_id` or `identity_id`. The loader rejects split leakage when a source/identity appears across multiple splits. Evaluation reports accuracy, precision, recall, F1, balanced accuracy, error rates, a confusion matrix, and expected calibration error.
+
+## Limitations
+
+This repository does **not** yet contain validated weights, a background queue, authentication/admin review, model registry, benchmark runner, or training pipeline. It must not be represented as a deepfake detector until those capabilities are implemented and evaluated.
