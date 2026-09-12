@@ -1,1 +1,0 @@
-{"dataset_manifest":"/absolute/path/manifest.jsonl","output_dir":"runs/example","seed":42,"epochs":10,"batch_size":32,"learning_rate":0.0001,"architecture":"resnet18","num_workers":4}

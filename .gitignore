@@ -1,7 +1,4 @@
-.env
-backend/data/
-backend/__pycache__/
 frontend/node_modules/
-frontend/build/
-__pycache__/
-*.py[cod]
+backend/venv/
+backend/models/
+venv/

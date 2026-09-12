@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a090a42c.css",
+    "main.js": "/static/js/main.8aa837c3.js",
+    "static/media/image5.png": "/static/media/image5.e07dab7033281d275dcc.png",
+    "static/media/image4.png": "/static/media/image4.ca21b915c57e4e5aa0ef.png",
+    "static/media/parta1.jpg": "/static/media/parta1.f810deeab30bb7e2c1eb.jpg",
+    "static/media/priyanshu.jpg": "/static/media/priyanshu.fca08684eb898877ff1c.jpg",
+    "static/media/srishti.jpg": "/static/media/srishti.e3cd6bcd18b6b453eb06.jpg",
+    "static/media/ashish.jpg": "/static/media/ashish.79fe569f5f20fffd428c.jpg",
+    "static/media/partb.jpg": "/static/media/partb.40dbc2c69c8d823a8e6c.jpg",
+    "static/media/image3.jpg": "/static/media/image3.fedced7ef48c59172a18.jpg",
+    "static/media/partc1.jpg": "/static/media/partc1.526c29a696147b2873e1.jpg",
+    "static/media/aditya.jpg": "/static/media/aditya.fbd3f74a6a94099509a3.jpg",
+    "static/media/anubhav.jpg": "/static/media/anubhav.d97f7904e8b9b17cf9bf.jpg",
+    "static/media/ayush.jpg": "/static/media/ayush.405a2d9c0e6ae0d49318.jpg",
+    "static/media/image1.jpg": "/static/media/image1.01ebf77bfde1b5ce9153.jpg",
+    "static/media/image2.jpg": "/static/media/image2.e18d98e7824d378cb896.jpg",
+    "index.html": "/index.html",
+    "main.a090a42c.css.map": "/static/css/main.a090a42c.css.map",
+    "main.8aa837c3.js.map": "/static/js/main.8aa837c3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a090a42c.css",
+    "static/js/main.8aa837c3.js"
+  ]
+}
